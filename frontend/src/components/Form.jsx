@@ -44,7 +44,7 @@ const Form = ( {route, method} ) => {
     try {
       const res = await api.post(route, {username, password})
       localStorage.setItem(ACCESS_TOKEN, res.data.access);
-      localStorage.setItem(REFRESH_TOKEN, res.refresh);
+      localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
 
       if (method == "login") {
         navigate("/")

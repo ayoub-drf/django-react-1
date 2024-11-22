@@ -13,22 +13,43 @@ const Home = () => {
             const res = await api.get("notes/")
             setNotes(res.data)
         } catch (err) {
-            console.log(err)
-            alert(err)
+            console.log('Error :', err)
         } 
     }
 
     useEffect(() => {
         getNotes()
+
     }, [])
 
-    const deleteNote = (id) => {
-        api.delete(`notes/${id}/`).then((res) => {
-            if (res.status == 204) alert("Note Deleted")
-            else alert("Failed to delete note.")
-            getNotes()
-        })
-        console.log(id)
+    const deleteNote = async (id) => {
+      const noteID = String(id);
+      console.log(noteID)
+      try {
+        const res = await api.delete(`notes/${noteID}/`)
+        if (res.status == 204) {
+          getNotes()
+        }
+        console.log('OK')
+      } catch (err) {
+        console.log(err)
+      }
+    };
+
+    const createNote = async (e) => {
+      e.preventDefault();
+
+      try {
+        const res = await api.post("notes/", { title });
+        if(res.status == 201) {
+          getNotes()
+        }
+      } catch (err) {
+        console.log(err)
+      }
+
+      console.log("Hello")
+
     }
 
 
@@ -41,7 +62,7 @@ const Home = () => {
         ))}
       </div>
       <h2>Create a Note</h2>
-      <form >
+      <form onSubmit={createNote}>
         <label htmlFor="title">Title:</label>
         <br />
         <input

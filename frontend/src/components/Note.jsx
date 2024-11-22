@@ -1,7 +1,7 @@
 import PropsTypes from "prop-types"
 
 const Note = ({ note, onDelete }) => {
-const formattedDate = new Date(note.created_at).toLocaleDateString("en-US")
+const formattedDate = new Date(note.created).toLocaleDateString()
 
   return (
     <div className="note-container">
