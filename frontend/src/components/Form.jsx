@@ -41,25 +41,32 @@ const Form = ( {route, method} ) => {
     e.preventDefault();
     setLoading(!loading);
 
-    try {
-      const res = await api.post(route, {username, password})
-      localStorage.setItem(ACCESS_TOKEN, res.data.access);
-      localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
+    if (method == "register") {
+      console.log(method)
+    } else {
+      console.log(method)
+        try {
+          const res = await api.post(route, {username, password})
+          localStorage.setItem(ACCESS_TOKEN, res.data.access);
+          localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
+    
+          if (method == "login") {
+            navigate("/")
+          } else {
+            navigate('/login')
+          }
+          
+        } catch(err) {
+          setError(err)
+          console.log(error)
+        } finally {
+          setUsername("")
+          setPassword("")
+          setLoading(false)
+        }
 
-      if (method == "login") {
-        navigate("/")
-      } else {
-        navigate('/login')
-      }
-      
-    } catch(err) {
-      setError(err)
-      console.log(error)
-    } finally {
-      setUsername("")
-      setPassword("")
-      setLoading(false)
     }
+
   };
 
   return (

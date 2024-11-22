@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "../api";
 import Note from "../components/Note";
+import "../styles/Home.css"
 
 const Home = () => {
     const [notes, setNotes] = useState([])
@@ -13,7 +14,7 @@ const Home = () => {
             const res = await api.get("notes/")
             setNotes(res.data)
         } catch (err) {
-            console.log('Error :', err)
+            console.log(err)
         } 
     }
 
@@ -22,15 +23,29 @@ const Home = () => {
 
     }, [])
 
+    const updateNote = async (id, newTitle, setNewTitle) => {
+      const noteID = String(id);
+
+      try {
+        const res = await api.put(`notes/update/${noteID}/`, {title: newTitle})
+        if (res.status == 200) {
+          getNotes()
+          setNewTitle("")
+        }
+
+      } catch (err) {
+        console.log(err)
+      }
+
+    }
     const deleteNote = async (id) => {
       const noteID = String(id);
-      console.log(noteID)
+      // console.log(noteID)
       try {
         const res = await api.delete(`notes/${noteID}/`)
         if (res.status == 204) {
           getNotes()
         }
-        console.log('OK')
       } catch (err) {
         console.log(err)
       }
@@ -48,8 +63,6 @@ const Home = () => {
         console.log(err)
       }
 
-      console.log("Hello")
-
     }
 
 
@@ -58,7 +71,7 @@ const Home = () => {
       <div>
         <h2>Notes</h2>
         {notes.map((note) => (
-          <Note note={note} onDelete={deleteNote} key={note.id} />
+          <Note note={note} onUpdate={updateNote} onDelete={deleteNote} key={note.id} />
         ))}
       </div>
       <h2>Create a Note</h2>

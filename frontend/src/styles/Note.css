@@ -18,7 +18,21 @@
   color: #999;
   font-size: 0.8rem;
 }
-
+.update-button  {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+input {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 .delete-button {
   background-color: #f44336; /* Red */
   color: white;
