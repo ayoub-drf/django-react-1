@@ -8,7 +8,8 @@ from rest_framework_simplejwt.views import (
 from .views import (
     UserCreateAPIView,
     NoteDestroyAPIView,
-    NoteListCreateAPIView
+    NoteListCreateAPIView,
+    NoteUpdateAPIView
 )
 
 urlpatterns = [
@@ -17,5 +18,6 @@ urlpatterns = [
 
     path('register/', UserCreateAPIView.as_view()),
     path('notes/<str:pk>/', NoteDestroyAPIView.as_view()),
+    path('notes/update/<str:pk>/', NoteUpdateAPIView.as_view()),
     path('notes/', NoteListCreateAPIView.as_view()),
 ]
